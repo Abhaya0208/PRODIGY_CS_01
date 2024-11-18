@@ -1,0 +1,63 @@
+def caesar_cipher(text, shift, mode="encrypt"):
+    """
+    Encrypts or decrypts the given text using the Caesar Cipher algorithm.
+    :param text: str, text to process
+    :param shift: int, shift value for encryption/decryption
+    :param mode: str, "encrypt" or "decrypt" to specify the operation
+    :return: str, processed text
+    """
+    processed_text = ""
+    # Adjust shift for decryption
+    if mode == "decrypt":
+        shift = -shift
+
+    for letter in text:
+        if letter.isalpha():  # Determine if the character is alphabetic
+            start = ord('A') if letter.isupper() else ord('a')
+            # Apply the Caesar Cipher formula
+            new_letter = chr((ord(letter) - start + shift) % 26 + start)
+            processed_text += new_letter
+        else:
+            # Non-alphabetic characters remain unchanged
+            processed_text += letter
+    return processed_text
+
+
+if __name__ == '__main__':
+    print("1. Encrypt")
+    print("2. Decrypt")
+
+    # Ask the user for their choice
+    choice = input("Enter your choice (1 for Encrypt, 2 for Decrypt): ").strip()
+
+    if choice == "1":
+        mode = "encrypt"
+    elif choice == "2":
+        mode = "decrypt"
+    else:
+        print("Invalid choice. Exiting the program.")
+        exit()
+
+    # Ask for input text and shift value
+    text = input("Enter your text: ").strip()
+    shift = int(input("Enter shift value: ").strip())
+
+    # Process based on user choice
+    result = caesar_cipher(text, shift, mode=mode)
+    if mode == "encrypt":
+        print(f"Encrypted Text: {result}")
+    else:
+        print(f"Decrypted Text: {result}")
+
+
+
+
+
+
+
+
+
+
+
+
+
